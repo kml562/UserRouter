@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import userModel from "../models/userController";
-import { isValid } from "../utils/validatior/validatior";
+import userModel from "../models/userController.js";
+import { isValid } from "../utils/validatior/validatior.js";
 
 export const authentication = (req, res, next) => {
   try {
@@ -27,8 +27,8 @@ export const authentication = (req, res, next) => {
 
 export const adminAuthentication = async (req, res, next) => {
   try {
-    const userID = req.params.userID;
-
+    const userID =  req.decodedToken.userId.toString();
+   //console.log(userID)
     if (!isValid(userID)) {
       return res
         .status(400)
@@ -36,7 +36,7 @@ export const adminAuthentication = async (req, res, next) => {
     }
 
     const user = await userModel.findById(userID);
-
+    //console.log(user);
     // Check if the user is an admin-------------------------------------------------------
     if (user && user.role === "admin") {
       // User is an admin, allow the request to proceed-------------------------------------

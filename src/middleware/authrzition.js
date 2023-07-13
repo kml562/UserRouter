@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import userModel from '../models/userController.js';
 
 
 
@@ -15,8 +16,8 @@ export const isLoggedIn = async(req,res,next)=>{
                     msg: err.message
                 })
             } else {
-                const user = await userModel.findById(decodedToken.id)
-                if(!user) res.status(401).json({status : false, message : "Please Logged In First."})
+                // const user = await userModel.findById(decodedToken.id)
+                // if(!user) return  res.status(401).json({status : false, message : "Please Logged In First."})
                 req.decodedToken = decodedToken
                 console.log(decodedToken)
                 next()

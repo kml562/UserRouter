@@ -25,7 +25,7 @@ const userSchema = new Schema(
         role: {
             type: String,
             required: true,
-            enum: ["front-end developer", "back-end developer","admit", "UI-UX Designer"]
+            enum: ["front-end developer", "back-end developer","admin", "UI-UX Designer"]
         },
         isDeleted: {
             type: Boolean,
