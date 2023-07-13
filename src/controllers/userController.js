@@ -45,7 +45,7 @@ export const createUser = async (req, res) => {
     const rolearr = [
       "front-end developer",
       "back-end developer",
-      "admit",
+      "admin",
       "UI-UX Designer",
     ];
     if (!rolearr.includes(role)) {
@@ -66,12 +66,14 @@ export const createUser = async (req, res) => {
     }
     res.status(201).json({ status: true, message: createData });
   } catch (error) {
-    if (error.keyPattern.email === 1) {
-      return res
-        .status(400)
-        .json({ status: false, message: "email already exists in data base" });
+    if (error.keyPattern.email) {
+      if (error.keyPattern.email === 1) {
+        return res
+          .status(400)
+          .json({ status: false, message: "email already exists in data base" });
+      }
     }
-    // console.log(error)
+    console.log(error)
     return res.status(500).json({ status: false, message: error.message });
   }
 };
