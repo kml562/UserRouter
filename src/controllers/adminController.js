@@ -94,14 +94,7 @@ export const updateProblem = async (req, res) => {
   try {
     const problemId = req.params.problemId;
     const problemData = req.body;
-
-    // problemId validation-------------------------------------------------------------------
-    if (!isValid(problemId)) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid Qustion ID" });
-    }
-
+    const { endpoint, accessToken } = process.env;
     // problemId ----------------------------------------------------------------------------
     if (!isValidStr(problemData)) {
       return res
@@ -112,9 +105,9 @@ export const updateProblem = async (req, res) => {
       `https://${endpoint}/api/v4/problems/${problemId}?access_token=${accessToken}`,
       problemData
     );
-
+ console.log(response)
     if (response.status === 200) {
-      return res.status(200).json({ status: true, data: response.data }); // Problem updated
+      return res.status(200).json({ status: true, message: "problem updated" }); // Problem updated
     }
   } catch (error) {
     if (error.response) {
@@ -130,26 +123,20 @@ export const updateProblem = async (req, res) => {
         res.status(400).json({ status: false, error: error.response.data }); // Return the error response from the API
       }
     }
-    return res.status(500).json({ status: false, error: error.error.message });
+    return res.status(500).json({ status: false, error: error.message });
   }
 };
 
 // Delete Post -----------------------------------------------------------------------------------
 export const DeleteProblem = async (req, res) => {
   try {
-    let { problemId } = req.body;
-
-    // problemId validation-------------------------------------------------------------------
-    if (!isValid(problemId)) {
-      return res
-        .status(400)
-        .json({ status: false, message: "Invalid Qustion ID" });
-    }
+    let { problemId } = req.params;
+    const { endpoint, accessToken } = process.env;
     axios
       .delete(`https://${endpoint}/api/v4/problems/${problemId}?access_token=${accessToken}`)
       .then(response => {
         if (response.status === 200) {
-          res.sendStatus(200); // Problem deleted
+        return   res.status(200).json({status:true,message:"Problem Deleted"}); // Problem deleted
         }
       })
       .catch(error => {
