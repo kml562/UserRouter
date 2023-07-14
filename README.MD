@@ -2,7 +2,7 @@
 
 This project is a coding platform where participants can solve questions, and the admin can manage the questions. It includes authentication, question management, and solution evaluation using the Sphere Engine API.
 
-## Depolyment Links
+## Deployment Links  - https://jsacademy.onrender.com
 
 ## Project Goal
 
